@@ -1,0 +1,52 @@
+string $nodes[] = `ls -sl`;
+
+global int $n_joint = 0;
+global int $n_obj = 0;
+global int $n_nodes = 0;
+global int $n_transform = 0;
+global int $n_meshes = 0;
+
+proc CountTypes(string $arr[])
+{
+    global int $n_nodes;
+    global int $n_transform;
+    global int $n_meshes;
+    global int $n_joint;
+    for($item in $arr)
+    {
+        if(nodeType($item) == "node")
+        {
+            $n_nodes++;
+        }
+        else if(nodeType($item) == "mesh")
+        {
+           $n_meshes++; 
+        }
+        else if(nodeType($item) == "joint")
+        {
+            $n_joint++;
+        }
+        else if(nodeType($item) == "transform")
+        {
+            $n_transform++;
+        }
+    }
+}
+
+$n_obj = size($nodes);
+CountTypes($nodes);
+
+for($node in $nodes)
+{  
+    string $all_desc[] = `listRelatives -ad $node`;
+    CountTypes($all_desc);
+}
+print("selected " + $n_obj + " object\n");
+print("selected " + $n_nodes + " nodes\n");
+print("selected " + $n_transform + " transform\n");
+print("selected " + $n_joint + " joint\n");
+print("selected " + $n_meshes + " meshes\n");
+
+
+
+

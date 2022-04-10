@@ -1,0 +1,26 @@
+string $window = "Window";
+
+if (`window -q -ex $window`)
+{
+    deleteUI $window;
+}
+
+window -t "Hello" $window;
+window -e -h 500 -w 500 $window;
+    columnLayout -adj true -co "both" 5 -rs 10 -bgc 0.4 0.1 0;
+        separator -h 20;
+        text -h 10 -w 10 -fn "plainLabelFont" -l "enter your name";
+        separator -h 20;
+        $name = `textField`;
+        button -l "login" -c "ChangeNameLabel($name,$name_label)";
+        $name_label = `text -h 15 -fn "plainLabelFont" -l ""`;
+    setParent..;
+    
+showWindow;
+
+
+global proc ChangeNameLabel(string $field,string $label)
+{
+    string $text = `textField -q -text $field`;
+    text -e -l ("Hello "+$text) $label;
+}

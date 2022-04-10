@@ -1,0 +1,16 @@
+int $x = 0;
+string $mat[] = {"lambert3SG","lambert2SG","blinn1SG"};
+for($i=0;$i<3;++$i)
+{
+    string $s[] =`polySphere -r 1`;
+    string $c[] = `polyCube`;
+    string $cube = $c[0];
+    string $sphere = $s[0]; 
+    setAttr($sphere +".translateX ") $x;
+    
+    setAttr($cube+".translateX ") $x;
+    setAttr($cube+".translateY ") 3;
+    select -r $c[0];
+    sets -e -fe $mat[$i];
+    $x+=5;
+}
