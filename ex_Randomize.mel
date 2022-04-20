@@ -1,0 +1,12 @@
+global proc RandomizeSelected()
+{
+    string $selected[] = `ls -sl`;
+    for($i=0;$i < size($selected);$i++)
+    {
+        float $newScale = `rand 0.5 5`;
+        vector $newRot = `rand<<-90,-90,-90>> <<90,90,90>>`;
+        scale -a $newScale $newScale $newScale $selected[$i];
+        rotate -a ($newRot.x) ($newRot.y) ($newRot.z) $selected[$i];
+    }
+}
+RandomizeSelected();
